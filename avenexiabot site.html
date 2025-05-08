@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AvenexiaBot - Projet scolaire</title>
+  <!-- Import des Fluent UI Web Components -->
+  <script type="module" src="https://unpkg.com/@fluentui/web-components@latest"></script>
+  <style>
+    /* Base Fluent Design */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f2f1;
+      color: #323130;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.25rem;
+      color: #605e5c;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 1.5rem;
+    }
+    .banner {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      object-fit: cover;
+    }
+    fluent-card {
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background: #ffffff;
+    }
+    .project-label {
+      font-style: italic;
+      color: #605e5c;
+      margin-top: 1rem;
+    }
+    fluent-button {
+      margin-top: 1.5rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #605e5c;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AvenexiaBot</h1>
+    <p>Projet scolaire</p>
+  </header>
+
+  <main>
+    <img src="images/mbot_recent.jpg" alt="mBot Apparence Récente" class="banner">
+    <fluent-card>
+      <h2>Découvre le mBot dans sa toute nouvelle version !</h2>
+      <p>Le mBot est un robot éducatif conçu pour initier les débutants à la programmation et à la robotique. Grâce à sa structure modulaire et son environnement de programmation visuel, tu pourras réaliser rapidement tes premiers projets technologiques.</p>
+      <p class="project-label">Ce site est un projet scolaire réalisé dans le cadre du cours de technologie numérique.</p>
+      <a href="https://www.makeblock.com/mbot" target="_blank" rel="noopener">
+        <fluent-button appearance="accent">En savoir plus sur le mBot</fluent-button>
+      </a>
+    </fluent-card>
+  </main>
+
+  <footer>
+    &copy; 2025 AvenexiaBot - Projet scolaire
+  </footer>
+</body>
+</html>
