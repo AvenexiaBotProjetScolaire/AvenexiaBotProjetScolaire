@@ -39,15 +39,17 @@
       background: var(--header-gradient);
       color: white;
       box-shadow: 0 2px 8px var(--shadow-light);
-      border-bottom-left-radius: var(--radius);
-      border-bottom-right-radius: var(--radius);
       padding: 1rem 2rem;
       display: flex;
       align-items: center;
+      border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
     }
     body.dark header {
       background: var(--header-dark-gradient);
       box-shadow: 0 2px 8px var(--shadow-dark);
+      border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
     }
     .logo { height: 50px; margin-right: 1rem; }
     .titre h1 { margin: 0; font-size: 1.75rem; }
@@ -58,22 +60,42 @@
       padding: 2rem 1rem;
     }
     fluent-tabs {
-      --tab-background: transparent;
-      --tab-font-size: 1rem;
-      --tab-margin: 0 1rem;
-      display: block;
+      display: flex;
+      border-bottom: 2px solid #e0e0e0;
+      position: relative;
     }
     fluent-tab {
       padding: 0.75rem 1rem;
       font-size: 1.1rem;
       cursor: pointer;
+      transition: color var(--transition);
+      position: relative;
     }
     fluent-tab[aria-selected="true"] {
       color: var(--accent);
-      border-bottom: 3px solid var(--accent);
       font-weight: 600;
     }
+    fluent-tab::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: transparent;
+      border-radius: 1px;
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+    fluent-tab[aria-selected="true"]::after {
+      width: 30px;
+      background: var(--accent);
+    }
+    fluent-tab:hover {
+      color: var(--accent);
+    }
     fluent-tab-panel {
+      display: none;
       padding: 1.5rem;
       background: var(--card-light);
       border-radius: var(--radius);
@@ -82,11 +104,14 @@
       transition: background var(--transition), box-shadow var(--transition);
       animation: fadeIn var(--transition) ease both;
     }
+    fluent-tab-panel.active {
+      display: block;
+    }
     body.dark fluent-tab-panel {
       background: var(--card-dark);
       box-shadow: 0 4px 20px var(--shadow-dark);
     }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity:1; transform: translateY(0);} }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
     .banner {
       width: 100%;
       border-radius: var(--radius);
@@ -110,7 +135,10 @@
       background: #fcfcfc;
       margin-top: 2rem;
     }
-    body.dark footer { background: #181818; color: #aaa; }
+    body.dark footer {
+      background: #181818;
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
@@ -123,42 +151,56 @@
   </header>
 
   <main>
-    <fluent-tabs activeid="robot">
-      <fluent-tab id="robot">Le robot</fluent-tab>
-      <fluent-tab id="entreprise">Présentation de l'entreprise</fluent-tab>
-      <fluent-tab id="organigramme">Organigramme</fluent-tab>
-
-      <fluent-tab-panel id="robot-panel">
-        <img src="images/mbot_recent.jpg" alt="mBot Apparence Récente" class="banner" />
-        <fluent-card>
-          <h2>Pourquoi choisir le mBot ?</h2>
-          <p>Le mBot, c’est le robot éducatif qu’il te faut : intuitif, modulable et ultra-connecté.</p>
-        </fluent-card>
-      </fluent-tab-panel>
-
-      <fluent-tab-panel id="entreprise-panel">
-        <fluent-card>
-          <h2>Présentation de l'entreprise</h2>
-          <p>Makeblock est leader en solutions STEAM éducatives.
-        </fluent-card>
-      </fluent-tab-panel>
-
-      <fluent-tab-panel id="organigramme-panel">
-        <fluent-card>
-          <h2>Organigramme</h2>
-          <ul>
-            <li><strong>Chef de projet :</strong> Louis</li>
-            <li><strong>Développeur Front-end :</strong> ...</li>
-            <li><strong>Responsable contenu :</strong> ...</li>
-            <li><strong>Designer UX/UI :</strong> ...</li>
-          </ul>
-        </fluent-card>
-      </fluent-tab-panel>
+    <fluent-tabs id="tabs">
+      <fluent-tab id="tab-robot" aria-selected="true">Le robot</fluent-tab>
+      <fluent-tab id="tab-entreprise">Présentation de l'entreprise</fluent-tab>
+      <fluent-tab id="tab-organigramme">Organigramme</fluent-tab>
     </fluent-tabs>
+
+    <fluent-tab-panel id="panel-robot" class="active">
+      <img src="images/mbot_recent.jpg" alt="mBot Apparence Récente" class="banner" />
+      <fluent-card>
+        <h2>Pourquoi choisir le mBot ?</h2>
+        <p>Le mBot, c’est le robot éducatif qu’il te faut : intuitif, modulable et ultra-connecté.</p>
+      </fluent-card>
+    </fluent-tab-panel>
+
+    <fluent-tab-panel id="panel-entreprise">
+      <fluent-card>
+        <h2>Présentation de l'entreprise</h2>
+        <p>Makeblock est leader en solutions STEAM éducatives.</p>
+      </fluent-card>
+    </fluent-tab-panel>
+
+    <fluent-tab-panel id="panel-organigramme">
+      <fluent-card>
+        <h2>Organigramme</h2>
+        <ul>
+          <li><strong>Chef de projet :</strong> Louis</li>
+          <li><strong>Développeur Front-end :</strong> ...</li>
+          <li><strong>Responsable contenu :</strong> ...</li>
+          <li><strong>Designer UX/UI :</strong> ...</li>
+        </ul>
+      </fluent-card>
+    </fluent-tab-panel>
   </main>
 
   <footer>
     &copy; 2025 AvenexiaBot - Projet scolaire
   </footer>
+
+  <script>
+    const tabs = document.querySelectorAll('fluent-tab');
+    const panels = document.querySelectorAll('fluent-tab-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+        panels.forEach(p => p.classList.remove('active'));
+        tab.setAttribute('aria-selected', 'true');
+        const panelId = tab.id.replace('tab', 'panel');
+        document.getElementById(panelId).classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
