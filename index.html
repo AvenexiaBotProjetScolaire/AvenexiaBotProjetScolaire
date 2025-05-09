@@ -8,7 +8,6 @@
   <script type="module" src="https://unpkg.com/@fluentui/web-components@latest"></script>
   <style>
     :root {
-      /* Couleurs */
       --bg-light: #fafafa;
       --bg-dark: #121212;
       --bg-dark-img: url('images/dark-bg.jpg');
@@ -17,7 +16,6 @@
       --card-light: #ffffff;
       --card-dark: rgba(30, 30, 30, 0.9);
       --accent: #00b7ff;
-      --accent-dark: #00b7ff;
       --header-gradient: linear-gradient(135deg, #00b7ff 0%, #66d1ff 100%);
       --header-dark-gradient: linear-gradient(135deg, rgba(0,183,255,0.8), rgba(102,209,255,0.8));
       --shadow-light: rgba(0, 0, 0, 0.06);
@@ -28,11 +26,9 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg-light);
       color: var(--text-light);
-      line-height: 1.6;
       transition: background var(--transition), color var(--transition);
     }
     body.dark {
@@ -40,69 +36,45 @@
       color: var(--text-dark);
     }
     header {
-      display: flex;
-      align-items: center;
-      padding: 0.8rem 2rem;
       background: var(--header-gradient);
       color: white;
       box-shadow: 0 2px 8px var(--shadow-light);
       border-bottom-left-radius: var(--radius);
       border-bottom-right-radius: var(--radius);
-      transition: background var(--transition);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
     }
     body.dark header {
       background: var(--header-dark-gradient);
       box-shadow: 0 2px 8px var(--shadow-dark);
     }
-    .logo { height: 50px; width: auto; }
-    .titre { margin-left: 1rem; }
-    .titre h1 {
-      margin: 0;
-      font-size: 1.75rem;
-      letter-spacing: 1px;
-    }
-    .titre p {
-      margin: 0;
-      font-size: 0.9rem;
-      opacity: 0.85;
-    }
+    .logo { height: 50px; margin-right: 1rem; }
+    .titre h1 { margin: 0; font-size: 1.75rem; }
+    .titre p { margin: 0; font-size: 0.9rem; opacity: 0.8; }
     main {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
     }
     fluent-tabs {
-      display: flex;
-      justify-content: space-around;
-      border-bottom: 2px solid #e2e2e2;
+      --tab-background: transparent;
+      --tab-font-size: 1rem;
+      --tab-margin: 0 1rem;
+      display: block;
     }
     fluent-tab {
-      flex: 1;
-      text-align: center;
-      padding: 1rem 0;
+      padding: 0.75rem 1rem;
       font-size: 1.1rem;
       cursor: pointer;
-      position: relative;
-      transition: color var(--transition);
     }
-    fluent-tab:hover { color: var(--accent); }
     fluent-tab[aria-selected="true"] {
       color: var(--accent);
+      border-bottom: 3px solid var(--accent);
       font-weight: 600;
     }
-    fluent-tab[aria-selected="true"]::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 30%;
-      width: 40%;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 2px;
-      transition: width var(--transition);
-    }
     fluent-tab-panel {
-      padding: 2rem;
+      padding: 1.5rem;
       background: var(--card-light);
       border-radius: var(--radius);
       box-shadow: 0 4px 20px var(--shadow-light);
@@ -114,86 +86,31 @@
       background: var(--card-dark);
       box-shadow: 0 4px 20px var(--shadow-dark);
     }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity:1; transform: translateY(0);} }
     .banner {
       width: 100%;
       border-radius: var(--radius);
-      box-shadow: 0 6px 30px var(--shadow-light);
-      margin-bottom: 2rem;
-      transition: box-shadow var(--transition);
+      margin-bottom: 1.5rem;
     }
-    body.dark .banner { box-shadow: 0 6px 30px var(--shadow-dark); }
     fluent-card {
-      padding: 1.5rem;
-      margin: 1.5rem 0;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
       border-radius: var(--radius);
       background: var(--card-light);
       box-shadow: 0 4px 16px var(--shadow-light);
-      transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
-    }
-    fluent-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 24px var(--shadow-light);
     }
     body.dark fluent-card {
       background: var(--card-dark);
       box-shadow: 0 4px 16px var(--shadow-dark);
     }
-    fluent-card h2 { margin-top: 0; color: var(--accent); }
-    .features-list {
-      list-style: none;
-      padding: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-    .features-list li {
-      position: relative;
-      padding-left: 1.5rem;
-      line-height: 1.4;
-    }
-    .features-list li::before {
-      content: '✔';
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: var(--accent);
-    }
-    .project-label {
-      margin-top: 1.5rem;
-      font-style: italic;
-      color: #666;
-      text-align: right;
-    }
-    body.dark .project-label { color: #bbb; }
-    fluent-button[appearance="accent"] {
-      margin-top: 1rem;
-      --button-accent-fill-rest: var(--accent);
-      --button-accent-fill-hover: #00aefc;
-      --button-accent-fill-active: #008ec0;
-      padding: 0.75rem 1.5rem;
-      border-radius: var(--radius);
-      font-weight: 600;
-      transition: background var(--transition);
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
     footer {
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 1rem;
       color: #888;
-      font-size: 0.85rem;
       background: #fcfcfc;
-      margin-top: 3rem;
+      margin-top: 2rem;
     }
     body.dark footer { background: #181818; color: #aaa; }
-    @media (prefers-color-scheme: dark) {
-      body:not(.dark) {
-        background: var(--bg-dark-img) center/cover no-repeat, var(--bg-dark);
-        color: var(--text-dark);
-      }
-    }
   </style>
 </head>
 <body>
@@ -210,44 +127,31 @@
       <fluent-tab id="robot">Le robot</fluent-tab>
       <fluent-tab id="entreprise">Présentation de l'entreprise</fluent-tab>
       <fluent-tab id="organigramme">Organigramme</fluent-tab>
-      
+
       <fluent-tab-panel id="robot-panel">
         <img src="images/mbot_recent.jpg" alt="mBot Apparence Récente" class="banner" />
         <fluent-card>
           <h2>Pourquoi choisir le mBot ?</h2>
-          <p>Le mBot, c’est le robot éducatif qu’il te faut : intuitif, modulable et ultra-connecté. Parfait pour développer tes compétences en STEM tout en t’amusant !</p>
-          <ul class="features-list">
-            <li>Programmation visuelle par blocs et Python</li>
-            <li>Capteurs intégrés : lumière, ultrason, suiveur de ligne</li>
-            <li>Connectivité Bluetooth et 2.4G</li>
-            <li>Assemblage facile avec des pièces robustes</li>
-            <li>Communauté active et ressources pédagogiques</li>
-          </ul>
-          <p class="project-label">Ce site est un projet scolaire conçu pour promouvoir l’apprentissage ludique de la robotique.</p>
-          <a href="https://www.makeblock.com/mbot" target="_blank" rel="noopener">
-            <fluent-button appearance="accent">Découvrir le mBot</fluent-button>
-          </a>
+          <p>Le mBot, c’est le robot éducatif qu’il te faut : intuitif, modulable et ultra-connecté.</p>
         </fluent-card>
       </fluent-tab-panel>
-      
+
       <fluent-tab-panel id="entreprise-panel">
         <fluent-card>
           <h2>Présentation de l'entreprise</h2>
-          <p>Makeblock est une entreprise leader dans le domaine de l'éducation STEAM (Science, Technologie, Ingénierie, Arts et Mathématiques). Elle développe des solutions robotiques et des logiciels éducatifs pour favoriser l'apprentissage pratique et interactif.</p>
-          <p>Depuis sa création, Makeblock s'engage à fournir des outils innovants pour les établissements scolaires, les enseignants et les étudiants du monde entier.</p>
+          <p>Makeblock est leader en solutions STEAM éducatives.
         </fluent-card>
       </fluent-tab-panel>
-      
+
       <fluent-tab-panel id="organigramme-panel">
         <fluent-card>
           <h2>Organigramme</h2>
           <ul>
             <li><strong>Chef de projet :</strong> Louis</li>
-            <li><strong>Développeur Front-end :</strong> [Nom du développeur]</li>
-            <li><strong>Responsable contenu :</strong> [Nom du responsable]</li>
-            <li><strong>Designer UX/UI :</strong> [Nom du designer]</li>
+            <li><strong>Développeur Front-end :</strong> ...</li>
+            <li><strong>Responsable contenu :</strong> ...</li>
+            <li><strong>Designer UX/UI :</strong> ...</li>
           </ul>
-          <p>Chaque membre de l'équipe a contribué activement à la conception et au déploiement de ce projet.</p>
         </fluent-card>
       </fluent-tab-panel>
     </fluent-tabs>
