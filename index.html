@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AvenexiaBot - Projet scolaire</title>
+  <title>AvenexiaBot - Promotion mBot</title>
   <!-- Import des Fluent UI Web Components -->
   <script type="module" src="https://unpkg.com/@fluentui/web-components@latest"></script>
   <style>
@@ -20,37 +20,48 @@
       flex-direction: column;
       align-items: center;
       padding: 2rem 1rem;
-      background-color: rgba(255, 255, 255, 0.6);
+      background-color: rgba(0, 120, 212, 0.7);
       backdrop-filter: blur(20px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      color: white;
     }
     header h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 0.5rem;
     }
     header p {
-      font-size: 1.25rem;
-      color: #605e5c;
+      font-size: 1.2rem;
+      opacity: 0.9;
     }
     main {
-      max-width: 800px;
+      max-width: 900px;
       margin: 2rem auto;
       padding: 0 1rem;
       display: grid;
-      grid-template-rows: auto auto;
-      gap: 1.5rem;
+      gap: 2rem;
     }
     .banner {
       width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
       object-fit: cover;
     }
     fluent-card {
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
       background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .features-list {
+      list-style: none;
+      padding: 0;
+    }
+    .features-list li::before {
+      content: '✓';
+      margin-right: 0.5rem;
+      color: #107c10;
     }
     .project-label {
       font-style: italic;
@@ -59,6 +70,7 @@
     }
     fluent-button {
       margin-top: 1.5rem;
+      align-self: start;
     }
     footer {
       text-align: center;
@@ -70,18 +82,27 @@
 </head>
 <body>
   <header>
-    <h1>AvenexiaBot</h1>
-    <p>Projet scolaire</p>
+    <h1>Bienvenue sur AvenexiaBot</h1>
+    <p>Le projet scolaire qui te présente le mBot 2025 en avant-première !</p>
   </header>
 
   <main>
     <img src="images/mbot_recent.jpg" alt="mBot Apparence Récente" class="banner">
+
     <fluent-card>
-      <h2>Découvre le mBot dans sa toute nouvelle version !</h2>
-      <p>Le mBot est un robot éducatif conçu pour initier les débutants à la programmation et à la robotique. Grâce à sa structure modulaire et son environnement de programmation visuel, tu pourras réaliser rapidement tes premiers projets technologiques.</p>
-      <p class="project-label">Ce site est un projet scolaire réalisé dans le cadre du cours de technologie numérique.</p>
+      <h2>Pourquoi choisir le mBot ?</h2>
+      <p>Le mBot, c’est le robot éducatif qu’il te faut : intuitif, modulable et ultra-connecté. Parfait pour développer tes compétences en STEM tout en t’amusant !</p>
+      <ul class="features-list">
+        <li>Programmation visuelle par blocs et Python</li>
+        <li>Capteurs ultraprécis (lumière, ultrason, ligne)</li>
+        <li>Connectivité Bluetooth et 2.4G</li>
+        <li>Assemblage rapide avec des pièces robustes</li>
+        <li>Communauté active et ressources pédagogiques</li>
+      </ul>
+      <p>Deviens créatif : défis robots, parcours d’obstacles, jeux interactifs… Les possibilités sont infinies !</p>
+      <p class="project-label">Ce site est un projet scolaire conçu pour promouvoir l’apprentissage ludique de la robotique.</p>
       <a href="https://www.makeblock.com/mbot" target="_blank" rel="noopener">
-        <fluent-button appearance="accent">En savoir plus sur le mBot</fluent-button>
+        <fluent-button appearance="accent">Découvre le mBot maintenant</fluent-button>
       </a>
     </fluent-card>
   </main>
