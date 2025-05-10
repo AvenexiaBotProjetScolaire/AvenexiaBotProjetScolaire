@@ -4,22 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AvenexiaBot - Projet scolaire</title>
-  <!-- Fluent UI Web Components -->
-  <script type="module" src="https://unpkg.com/@fluentui/web-components@latest"></script>
   <style>
     :root {
       --bg-light: #fafafa;
       --bg-dark: #121212;
-      --bg-dark-img: url('images/dark-bg.jpg');
       --text-light: #2e2e2e;
       --text-dark: #eaeaea;
       --card-light: #ffffff;
       --card-dark: rgba(30, 30, 30, 0.9);
       --accent: #00b7ff;
-      --header-gradient: linear-gradient(135deg, #00b7ff 0%, #66d1ff 100%);
-      --header-dark-gradient: linear-gradient(135deg, rgba(0,183,255,0.8), rgba(102,209,255,0.8));
-      --shadow-light: rgba(0, 0, 0, 0.06);
-      --shadow-dark: rgba(0, 0, 0, 0.8);
       --radius: 12px;
       --transition: 0.3s;
     }
@@ -31,23 +24,12 @@
       color: var(--text-light);
       transition: background var(--transition), color var(--transition);
     }
-    body.dark {
-      background: var(--bg-dark-img) center/cover no-repeat, var(--bg-dark);
-      color: var(--text-dark);
-    }
     header {
-      background: var(--header-gradient);
+      background: var(--accent);
       color: white;
-      box-shadow: 0 2px 8px var(--shadow-light);
       padding: 1rem 2rem;
       display: flex;
       align-items: center;
-      border-bottom-left-radius: var(--radius);
-      border-bottom-right-radius: var(--radius);
-    }
-    body.dark header {
-      background: var(--header-dark-gradient);
-      box-shadow: 0 2px 8px var(--shadow-dark);
       border-bottom-left-radius: var(--radius);
       border-bottom-right-radius: var(--radius);
     }
@@ -59,86 +41,58 @@
       margin: 0 auto;
       padding: 2rem 1rem;
     }
-    fluent-tabs {
+    /* Onglets custom avec indicator */
+    .tabs-container {
+      position: relative;
       display: flex;
       border-bottom: 2px solid #e0e0e0;
-      position: relative;
     }
-    fluent-tab {
-      padding: 0.75rem 1rem;
-      font-size: 1.1rem;
+    .tabs-container .tab {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 3rem;
+      text-align: center;
+      padding: 0.5rem 1rem 1rem;
       cursor: pointer;
       transition: color var(--transition);
       position: relative;
     }
-    fluent-tab[aria-selected="true"] {
+    .tabs-container .tab:hover { color: var(--accent); }
+    .tabs-container .tab.active {
       color: var(--accent);
       font-weight: 600;
     }
-    fluent-tab::after {
-      content: "";
+    .tab-indicator {
       position: absolute;
       bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
       height: 2px;
-      background: transparent;
-      border-radius: 1px;
-      transition: width 0.3s ease, background 0.3s ease;
-    }
-    fluent-tab[aria-selected="true"]::after {
-      width: 30px;
       background: var(--accent);
+      border-radius: 1px;
+      transition: left var(--transition), width var(--transition);
     }
-    fluent-tab:hover {
-      color: var(--accent);
-    }
-    fluent-tab-panel {
+    /* Panels */
+    .tab-panel {
       display: none;
       padding: 1.5rem;
       background: var(--card-light);
       border-radius: var(--radius);
-      box-shadow: 0 4px 20px var(--shadow-light);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
       margin-top: 1rem;
-      transition: background var(--transition), box-shadow var(--transition);
       animation: fadeIn var(--transition) ease both;
     }
-    fluent-tab-panel.active {
-      display: block;
-    }
-    body.dark fluent-tab-panel {
-      background: var(--card-dark);
-      box-shadow: 0 4px 20px var(--shadow-dark);
-    }
+    .tab-panel.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
-    .banner {
-      width: 100%;
-      border-radius: var(--radius);
-      margin-bottom: 1.5rem;
+    .banner { width:100%; border-radius:var(--radius); margin-bottom:1.5rem; }
+    .card {
+      padding:1rem;
+      margin-bottom:1.5rem;
+      background:var(--card-light);
+      border-radius:var(--radius);
+      box-shadow:0 4px 16px rgba(0,0,0,0.06);
     }
-    fluent-card {
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      border-radius: var(--radius);
-      background: var(--card-light);
-      box-shadow: 0 4px 16px var(--shadow-light);
-    }
-    body.dark fluent-card {
-      background: var(--card-dark);
-      box-shadow: 0 4px 16px var(--shadow-dark);
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      color: #888;
-      background: #fcfcfc;
-      margin-top: 2rem;
-    }
-    body.dark footer {
-      background: #181818;
-      color: #aaa;
-    }
+    footer { text-align:center; padding:1rem; color:#888; background:#fcfcfc; margin-top:2rem; }
   </style>
 </head>
 <body>
@@ -149,57 +103,62 @@
       <p>Projet scolaire</p>
     </div>
   </header>
-
   <main>
-    <fluent-tabs id="tabs">
-      <fluent-tab id="tab-robot" aria-selected="true">Le robot</fluent-tab>
-      <fluent-tab id="tab-entreprise">Présentation de l'entreprise</fluent-tab>
-      <fluent-tab id="tab-organigramme">Organigramme</fluent-tab>
-    </fluent-tabs>
-
-    <fluent-tab-panel id="panel-robot" class="active">
+    <div class="tabs-container" id="tabs">
+      <div class="tab active" data-panel="robot">Le robot</div>
+      <div class="tab" data-panel="entreprise">Présentation de l'entreprise</div>
+      <div class="tab" data-panel="organigramme">Organigramme</div>
+      <div class="tab-indicator" id="indicator"></div>
+    </div>
+    <div class="tab-panel active" id="panel-robot">
       <img src="images/mbot_recent.jpg" alt="mBot Apparence Récente" class="banner" />
-      <fluent-card>
-        <h2>Pourquoi choisir le mBot ?</h2>
-        <p>Le mBot, c’est le robot éducatif qu’il te faut : intuitif, modulable et ultra-connecté.</p>
-      </fluent-card>
-    </fluent-tab-panel>
-
-    <fluent-tab-panel id="panel-entreprise">
-      <fluent-card>
+      <div class="card">
+        <h2>Pourquoi choisir le mBot&nbsp;?</h2>
+        <p>Le mBot, c’est le robot éducatif qu’il te faut&nbsp;: intuitif, modulable et ultra-connecté.</p>
+      </div>
+    </div>
+    <div class="tab-panel" id="panel-entreprise">
+      <div class="card">
         <h2>Présentation de l'entreprise</h2>
         <p>Makeblock est leader en solutions STEAM éducatives.</p>
-      </fluent-card>
-    </fluent-tab-panel>
-
-    <fluent-tab-panel id="panel-organigramme">
-      <fluent-card>
+      </div>
+    </div>
+    <div class="tab-panel" id="panel-organigramme">
+      <div class="card">
         <h2>Organigramme</h2>
         <ul>
-          <li><strong>Chef de projet :</strong> Louis</li>
-          <li><strong>Développeur Front-end :</strong> ...</li>
-          <li><strong>Responsable contenu :</strong> ...</li>
-          <li><strong>Designer UX/UI :</strong> ...</li>
+          <li><strong>Chef de projet&nbsp;:</strong> Louis</li>
+          <li><strong>Développeur Front-end&nbsp;:</strong> Messaoud</li>
+          <li><strong>Responsable contenu&nbsp;:</strong> Selmane</li>
+          <li><strong>Designer UX/UI&nbsp;:</strong> Léo</li>
         </ul>
-      </fluent-card>
-    </fluent-tab-panel>
+      </div>
+    </div>
   </main>
-
-  <footer>
-    &copy; 2025 AvenexiaBot - Projet scolaire
-  </footer>
-
+  <footer>&copy; 2025 AvenexiaBot - Projet scolaire</footer>
   <script>
-    const tabs = document.querySelectorAll('fluent-tab');
-    const panels = document.querySelectorAll('fluent-tab-panel');
+    const tabs = document.querySelectorAll('.tabs-container .tab');
+    const panels = document.querySelectorAll('.tab-panel');
+    const indicator = document.getElementById('indicator');
+    function updateIndicator(activeTab) {
+      const fullWidth = activeTab.offsetWidth;
+      const w = fullWidth * 0.6;
+      const left = activeTab.offsetLeft + (fullWidth - w) / 2;
+      indicator.style.width = w + 'px';
+      indicator.style.left = left + 'px';
+    }
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+        tabs.forEach(t => t.classList.remove('active'));
         panels.forEach(p => p.classList.remove('active'));
-        tab.setAttribute('aria-selected', 'true');
-        const panelId = tab.id.replace('tab', 'panel');
-        document.getElementById(panelId).classList.add('active');
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+        updateIndicator(tab);
       });
+    });
+    // Position initiale de l'underline
+    document.addEventListener('DOMContentLoaded', () => {
+      updateIndicator(document.querySelector('.tab.active'));
     });
   </script>
 </body>
