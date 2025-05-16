@@ -12,7 +12,7 @@
       --text-dark: #eaeaea;
       --card-light: #ffffff;
       --card-dark: rgba(30, 30, 30, 0.9);
-      --accent: #00b7ff;
+      --accent: #5B913B; /* couleur verte personnalisée */
       --radius: 12px;
       --transition: 0.3s;
     }
@@ -84,7 +84,9 @@
     }
     .tab-panel.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
-    .banner { width:100%; border-radius:var(--radius); margin-bottom:1.5rem; }
+    .banner, .card img {
+      width:100%; border-radius:var(--radius); margin-bottom:1.5rem;
+    }
     .card {
       padding:1rem;
       margin-bottom:1.5rem;
@@ -105,26 +107,34 @@
   </header>
   <main>
     <div class="tabs-container" id="tabs">
-      <div class="tab active" data-panel="robot">Le robot</div>
+      <div class="tab active" data-panel="accueil">🏠 Accueil</div>
+      <div class="tab" data-panel="robot">Le robot</div>
       <div class="tab" data-panel="entreprise">Présentation de l'entreprise</div>
-      <div class="tab" data-panel="organigramme">Organigramme</div>
+      <div class="tab" data-panel="metiers">Présentation des métiers</div>
       <div class="tab-indicator" id="indicator"></div>
     </div>
-    <div class="tab-panel active" id="panel-robot">
+    <div class="tab-panel active" id="panel-accueil">
+      <div class="card">
+        <h2>Bienvenue sur AvenexiaBot&nbsp;!</h2>
+        <p>Nous vous proposons différents robots et progrès techniques du monde entier à des prix très avantageux&nbsp;!</p>
+      </div>
+    </div>
+    <div class="tab-panel" id="panel-robot">
       <img src="images/mbot_recent.jpg" alt="mBot Apparence Récente" class="banner" />
       <div class="card">
         <h2>Pourquoi choisir le mBot&nbsp;?</h2>
-        <p>Le mBot est un robot éducatif conçu pour initier les débutants à la programmation et à la robotique. Il permet d'aprendre facilement la robotique grâce au logicel de programmation simple, mBlock. Il peut être utilisé par exemple dans le cadre du cours de technologie.</p>
+        <p>Le mBot est un robot éducatif conçu pour initier les débutants à la programmation et à la robotique. Il permet d'apprendre facilement la robotique grâce au logiciel de programmation simple, mBlock. Il peut être utilisé dans le cadre du cours de technologie.</p>
       </div>
     </div>
     <div class="tab-panel" id="panel-entreprise">
       <div class="card">
         <h2>Présentation de l'entreprise</h2>
-        <p>AvenexiaBot est une entreprise de comercialisation du robot mBot. Il s’agit d’un travail fait en cours par
- des élève de troisièmes</p>
+        <p>AvenexiaBot est une entreprise de commercialisation du robot mBot. Il s’agit d’un projet réalisé par des élèves de troisième.</p>
       </div>
-    </div>
-    <div class="tab-panel" id="panel-organigramme">
+      <!-- Emplacement pour l'organigramme en image -->
+      <div class="card">
+        <img src="images/organigramme.png" alt="Organigramme de l'entreprise" />
+      </div>
       <div class="card">
         <h2>Organigramme</h2>
         <ul>
@@ -133,6 +143,12 @@
           <li><strong>Secrétaire&nbsp;:</strong> Nisrine</li>
           <li><strong>Ingénieur en robotique&nbsp;:</strong> Daphné</li>
         </ul>
+      </div>
+    </div>
+    <div class="tab-panel" id="panel-metiers">
+      <div class="card">
+        <h2>Présentation des métiers</h2>
+        <p>Découvrez les différents métiers liés à la robotique : ingénieur en robotique, programmeur, technicien de maintenance, chef de projet et bien d'autres.</p>
       </div>
     </div>
   </main>
@@ -157,7 +173,6 @@
         updateIndicator(tab);
       });
     });
-    // Position initiale de l'underline
     document.addEventListener('DOMContentLoaded', () => {
       updateIndicator(document.querySelector('.tab.active'));
     });
