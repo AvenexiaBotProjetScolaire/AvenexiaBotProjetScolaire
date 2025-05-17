@@ -7,12 +7,10 @@
   <style>
     :root {
       --bg-light: #fafafa;
-      --bg-dark: #121212;
       --text-light: #2e2e2e;
-      --text-dark: #eaeaea;
       --card-light: #ffffff;
       --card-dark: rgba(30, 30, 30, 0.9);
-      --accent: #5B913B; /* couleur verte personnalisée */
+      --texture: url('images/texture.png'); /* texture verte */
       --radius: 12px;
       --transition: 0.3s;
     }
@@ -25,7 +23,8 @@
       transition: background var(--transition), color var(--transition);
     }
     header {
-      background: var(--accent);
+      background-image: var(--texture);
+      background-size: cover;
       color: white;
       padding: 1rem 2rem;
       display: flex;
@@ -59,16 +58,16 @@
       transition: color var(--transition);
       position: relative;
     }
-    .tabs-container .tab:hover { color: var(--accent); }
+    .tabs-container .tab:hover { color: var(--card-dark); }
     .tabs-container .tab.active {
-      color: var(--accent);
       font-weight: 600;
     }
     .tab-indicator {
       position: absolute;
       bottom: 0;
       height: 2px;
-      background: var(--accent);
+      background-image: var(--texture);
+      background-size: cover;
       border-radius: 1px;
       transition: left var(--transition), width var(--transition);
     }
@@ -95,6 +94,11 @@
       box-shadow:0 4px 16px rgba(0,0,0,0.06);
     }
     footer { text-align:center; padding:1rem; color:#888; background:#fcfcfc; margin-top:2rem; }
+    .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -107,7 +111,7 @@
   </header>
   <main>
     <div class="tabs-container" id="tabs">
-      <div class="tab active" data-panel="accueil">🏠 Accueil</div>
+      <div class="tab active" data-panel="accueil"><img src="images/accueil.png" alt="Accueil" class="icon"/>Accueil</div>
       <div class="tab" data-panel="robot">Le robot</div>
       <div class="tab" data-panel="entreprise">Présentation de l'entreprise</div>
       <div class="tab" data-panel="metiers">Présentation des métiers</div>
