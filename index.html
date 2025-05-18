@@ -92,6 +92,17 @@
       border-radius:var(--radius);
       box-shadow:0 4px 16px rgba(0,0,0,0.06);
     }
+    .btn {
+      display: inline-block;
+      margin: 0.5rem 0.5rem 0 0;
+      padding: 0.5rem 1rem;
+      border: 2px solid var(--text-light);
+      border-radius: var(--radius);
+      background: transparent;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+    }
+    .btn:hover { background: var(--card-dark); color: white; }
     footer { text-align:center; padding:1rem; color:#888; background:#fcfcfc; margin-top:2rem; }
     .icon {
       width: 1.25rem;
@@ -120,6 +131,10 @@
       <div class="card">
         <h2>Bienvenue sur AvenexiaBot&nbsp;!</h2>
         <p>Nous vous proposons différents robots et progrès techniques du monde entier à des prix très avantageux&nbsp;!</p>
+        <!-- Boutons vers chaque onglet -->
+        <button class="btn" data-target="robot">Découvrir le robot</button>
+        <button class="btn" data-target="entreprise">Voir l'entreprise</button>
+        <button class="btn" data-target="metiers">Nos métiers</button>
       </div>
     </div>
     <div class="tab-panel" id="panel-robot">
@@ -173,6 +188,13 @@
         tab.classList.add('active');
         document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
         updateIndicator(tab);
+      });
+    });
+    // Gestion des boutons dans l'accueil
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target');
+        document.querySelector(`.tab[data-panel="${target}"]`).click();
       });
     });
     document.addEventListener('DOMContentLoaded', () => {
