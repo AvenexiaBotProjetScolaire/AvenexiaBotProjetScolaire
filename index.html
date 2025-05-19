@@ -29,6 +29,7 @@
       transition: background var(--transition), color var(--transition);
     }
     header {
+      position: relative;
       background-image: var(--texture);
       background-size: cover;
       color: white;
@@ -37,6 +38,22 @@
       align-items: center;
       border-bottom-left-radius: var(--radius);
       border-bottom-right-radius: var(--radius);
+      overflow: hidden;
+    }
+    /* Zone particles.js */
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .logo-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
     }
     .logo { height: 50px; margin-right: 1rem; }
     .titre h1 { margin: 0; font-size: 1.75rem; }
@@ -62,6 +79,7 @@
       cursor: pointer;
       transition: color var(--transition);
       position: relative;
+      z-index: 1;
     }
     .tabs-container .tab:hover { color: var(--card-dark); }
     .tabs-container .tab.active { font-weight: 600; }
@@ -73,6 +91,7 @@
       background-size: cover;
       border-radius: 1px;
       transition: left var(--transition), width var(--transition);
+      z-index: 1;
     }
     .tab-panel {
       display: none;
@@ -125,21 +144,27 @@
     #videoOverlay.hidden { opacity: 0; pointer-events: none; }
     video { width:100%; height:100%; object-fit: cover; }
   </style>
+  <!-- particles.js lib -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
+  <!-- Header with particles -->
+  <header>
+    <div id="particles-js"></div>
+    <div class="logo-container">
+      <img src="images/logo.png" alt="Logo AvenexiaBot" class="logo" />
+      <div class="titre">
+        <h1>AvenexiaBot</h1>
+        <p>Projet scolaire</p>
+      </div>
+    </div>
+  </header>
   <!-- Overlay vidéo d'intro -->
   <div id="videoOverlay">
     <video id="introVideo" class="intro-video" autoplay muted playsinline>
       <source src="images/debut.mp4" type="video/mp4">
     </video>
   </div>
-  <header>
-    <img src="images/logo.png" alt="Logo AvenexiaBot" class="logo" />
-    <div class="titre">
-      <h1>AvenexiaBot</h1>
-      <p>Projet scolaire</p>
-    </div>
-  </header>
   <main>
     <div class="tabs-container" id="tabs">
       <div class="tab active" data-panel="accueil"><img src="images/accueil.png" alt="Accueil" class="icon"/>Accueil</div>
@@ -191,6 +216,20 @@
   </main>
   <footer>&copy; 2025 AvenexiaBot - Projet scolaire</footer>
   <script>
+    /* Initialize particles.js for the header only */
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 50, density: { enable: true, value_area: 800 } },
+        color: { value: '#ffffff' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: false },
+        size: { value: 3, random: true },
+        move: { enable: true, speed: 2, direction: 'none', out_mode: 'out' }
+      },
+      interactivity: { detect_on: 'canvas', events: { onhover: { enable: true, mode: 'grab' } } },
+      retina_detect: true
+    });
+
     const tabs = document.querySelectorAll('.tabs-container .tab');
     const panels = document.querySelectorAll('.tab-panel');
     const indicator = document.getElementById('indicator');
@@ -218,13 +257,10 @@
     });
     const overlay = document.getElementById('videoOverlay');
     const video = document.getElementById('introVideo');
-    video.onended = () => {
-      overlay.classList.add('hidden');
-    };
+    video.onended = () => { overlay.classList.add('hidden'); };
     document.addEventListener('keydown', e => {
       if (e.key === 'a' && !overlay.classList.contains('hidden')) {
-        video.pause();
-        overlay.classList.add('hidden');
+        video.pause(); overlay.classList.add('hidden');
       }
     });
   </script>
