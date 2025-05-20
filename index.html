@@ -14,14 +14,10 @@
       --texture: url('images/texture.png');
       --radius: 12px;
       --transition: 0.3s;
+      --accent-color: #5B913B;
     }
     * { box-sizing: border-box; }
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
-      overflow-y: scroll;
-    }
+    html, body { margin:0; padding:0; min-height:100%; overflow-y: scroll; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg-light);
@@ -40,7 +36,6 @@
       border-bottom-right-radius: var(--radius);
       overflow: hidden;
     }
-    /* Zone particles.js */
     #particles-js {
       position: absolute;
       top: 0;
@@ -68,27 +63,25 @@
       display: flex;
       border-bottom: 2px solid #e0e0e0;
     }
-    .tabs-container .tab {
+    .tab {
       flex: 1;
       display: flex;
       align-items: flex-end;
       justify-content: center;
       height: 3rem;
-      text-align: center;
       padding: 0.5rem 1rem 1rem;
       cursor: pointer;
       transition: color var(--transition);
       position: relative;
       z-index: 1;
     }
-    .tabs-container .tab:hover { color: var(--card-dark); }
-    .tabs-container .tab.active { font-weight: 600; }
+    .tab:hover { color: var(--accent-color); }
+    .tab.active { color: var(--accent-color); font-weight: 600; }
     .tab-indicator {
       position: absolute;
       bottom: 0;
       height: 2px;
-      background-image: var(--texture);
-      background-size: cover;
+      background: var(--accent-color);
       border-radius: 1px;
       transition: left var(--transition), width var(--transition);
       z-index: 1;
@@ -103,10 +96,8 @@
       animation: fadeIn var(--transition) ease both;
     }
     .tab-panel.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
-    .banner, .card img, .intro-video {
-      width:100%; border-radius:var(--radius); margin-bottom:1.5rem;
-    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);} }
+    .banner, .card img, .intro-video { width:100%; border-radius:var(--radius); margin-bottom:1.5rem; }
     .card {
       padding:1rem;
       margin-bottom:1.5rem;
@@ -115,51 +106,54 @@
       box-shadow:0 4px 16px rgba(0,0,0,0.06);
     }
     .btn {
-      display: inline-block;
-      margin: 0.5rem 0.5rem 0 0;
-      padding: 0.5rem 1rem;
-      border: 2px solid var(--text-light);
-      border-radius: var(--radius);
-      background: transparent;
-      cursor: pointer;
-      transition: background var(--transition), color var(--transition);
+      display:inline-block;
+      margin:0.5rem 0.5rem 0 0;
+      padding:0.5rem 1rem;
+      border:2px solid var(--text-light);
+      border-radius:var(--radius);
+      background:transparent;
+      cursor:pointer;
+      transition:background var(--transition), color var(--transition);
     }
-    .btn:hover { background: var(--card-dark); color: white; }
+    .btn:hover { background: var(--accent-color); color:white; }
     footer { text-align:center; padding:1rem; color:#888; background:#fcfcfc; margin-top:2rem; }
-    .icon { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; }
-    #videoOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 1;
-      transition: opacity 0.5s ease;
+    .metiers-container {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:1.5rem;
     }
-    #videoOverlay.hidden { opacity: 0; pointer-events: none; }
-    video { width:100%; height:100%; object-fit: cover; }
+    .metier-block {
+      background:var(--card-light);
+      border-radius:var(--radius);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      box-shadow:0 4px 16px rgba(0,0,0,0.06);
+      transition:transform .3s;
+    }
+    .metier-block:hover { transform:translateY(-5px); }
+    .metier-img { width:100%; height:160px; object-fit:cover; }
+    .metier-content { padding:1rem; flex:1; display:flex; flex-direction:column; }
+    .metier-title { margin:0 0 .5rem; font-size:1.25rem; color:var(--accent-color); }
+    .metier-content p { flex:1; margin-bottom:.5rem; }
+    #videoOverlay {
+      position:fixed; top:0; left:0; width:100%; height:100%; background:black;
+      display:flex; align-items:center; justify-content:center;
+      z-index:1000; opacity:1; transition:opacity .5s ease;
+    }
+    #videoOverlay.hidden { opacity:0; pointer-events:none; }
+    video { width:100%; height:100%; object-fit:cover; }
   </style>
-  <!-- particles.js lib -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
-  <!-- Header with particles -->
   <header>
     <div id="particles-js"></div>
     <div class="logo-container">
       <img src="images/logo.png" alt="Logo AvenexiaBot" class="logo" />
-      <div class="titre">
-        <h1>AvenexiaBot</h1>
-        <p>Projet scolaire</p>
-      </div>
+      <div class="titre"><h1>AvenexiaBot</h1><p>Projet scolaire</p></div>
     </div>
   </header>
-  <!-- Overlay vidéo d'intro -->
   <div id="videoOverlay">
     <video id="introVideo" class="intro-video" autoplay muted playsinline>
       <source src="images/debut.mp4" type="video/mp4">
@@ -167,7 +161,7 @@
   </div>
   <main>
     <div class="tabs-container" id="tabs">
-      <div class="tab active" data-panel="accueil"><img src="images/accueil.png" alt="Accueil" class="icon"/>Accueil</div>
+      <div class="tab active" data-panel="accueil">Accueil</div>
       <div class="tab" data-panel="robot">Le robot</div>
       <div class="tab" data-panel="entreprise">Présentation de l'entreprise</div>
       <div class="tab" data-panel="metiers">Présentation des métiers</div>
@@ -208,28 +202,47 @@
       </div>
     </div>
     <div class="tab-panel" id="panel-metiers">
-      <div class="card">
-        <h2>Présentation des métiers</h2>
-        <p>Découvrez les différents métiers liés à la robotique : ingénieur en robotique, programmeur, technicien de maintenance, chef de projet et bien d'autres.</p>
+      <h2>Présentation des métiers</h2>
+      <div class="metiers-container">
+        <div class="metier-block">
+          <img src="images/ingenieur_robotique.png" alt="Ingénieur en robotique" class="metier-img" />
+          <div class="metier-content">
+            <h3 class="metier-title">Ingénieur en robotique</h3>
+            <p>Le métier d’ingénieur en robotique consiste à développer le robot pour qu’il réponde aux demandes des clients&nbsp;: tout ce qui concerne le robot et ses déplacements, faits sur un logiciel de programmation&nbsp;; l’esthétique du robot, si des clients ont des contraintes personnelles&nbsp;; la forme du robot, pour savoir s’il peut passer dans des endroits difficiles d’accès ou si des clients ont une demande particulière.</p>
+            <p>En conclusion, je cherche et développe le robot pour qu’il convienne et subvienne aux besoins de tous ses utilisateurs.</p>
+          </div>
+        </div>
+        <div class="metier-block">
+          <img src="images/metier2.png" alt="Métier 2" class="metier-img" />
+          <div class="metier-content">
+            <h3 class="metier-title">Métier 2</h3>
+            <p>Description du métier 2…</p>
+          </div>
+        </div>
+        <div class="metier-block">
+          <img src="images/metier3.png" alt="Métier 3" class="metier-img" />
+          <div class="metier-content">
+            <h3 class="metier-title">Métier 3</h3>
+            <p>Description du métier 3…</p>
+          </div>
+        </div>
+        <div class="metier-block">
+          <img src="images/metier4.png" alt="Métier 4" class="metier-img" />
+          <div class="metier-content">
+            <h3 class="metier-title">Métier 4</h3>
+            <p>Description du métier 4…</p>
+          </div>
+        </div>
       </div>
     </div>
   </main>
   <footer>&copy; 2025 AvenexiaBot - Projet scolaire</footer>
   <script>
-    /* Initialize particles.js for the header only */
     particlesJS('particles-js', {
-      particles: {
-        number: { value: 50, density: { enable: true, value_area: 800 } },
-        color: { value: '#ffffff' },
-        shape: { type: 'circle' },
-        opacity: { value: 0.5, random: false },
-        size: { value: 3, random: true },
-        move: { enable: true, speed: 2, direction: 'none', out_mode: 'out' }
-      },
-      interactivity: { detect_on: 'canvas', events: { onhover: { enable: true, mode: 'grab' } } },
+      particles: { number: { value: 50, density: { enable: true, value_area: 800 } }, color: { value: '#ffffff' }, shape: { type: 'circle' }, opacity: { value: 0.5 }, size: { value: 3, random: true }, move: { enable: true, speed: 2, out_mode: 'out' } },
+      interactivity: { events: { onhover: { enable: true, mode: 'grab' } } },
       retina_detect: true
     });
-
     const tabs = document.querySelectorAll('.tabs-container .tab');
     const panels = document.querySelectorAll('.tab-panel');
     const indicator = document.getElementById('indicator');
@@ -259,9 +272,10 @@
     const video = document.getElementById('introVideo');
     video.onended = () => { overlay.classList.add('hidden'); };
     document.addEventListener('keydown', e => {
-      if (e.key === 'a' && !overlay.classList.contains('hidden')) {
-        video.pause(); overlay.classList.add('hidden');
-      }
+      if (e.key === 'a' && !overlay.classList.contains('hidden')) { video.pause(); overlay.classList.add('hidden'); }
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      updateIndicator(document.querySelector('.tab.active'));
     });
   </script>
 </body>
