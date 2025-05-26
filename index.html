@@ -286,6 +286,43 @@
     document.addEventListener('DOMContentLoaded', () => {
       updateIndicator(document.querySelector('.tab.active'));
     });
-  </script>
+  </script><script>
+    const tabs = document.querySelectorAll('.tabs-container .tab');
+    const panels = document.querySelectorAll('.tab-panel');
+    const indicator = document.getElementById('indicator');
+
+    function updateIndicator(activeTab) {
+        const fullWidth = activeTab.offsetWidth;
+        const tabContainer = document.querySelector('.tabs-container');
+        const leftPosition = activeTab.offsetLeft - tabContainer.offsetLeft; // Ajustement selon le parent
+
+        indicator.style.width = fullWidth * 0.6 + 'px';
+        indicator.style.left = leftPosition + (fullWidth * 0.2) + 'px'; // Décalage pour bien centrer
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            updateIndicator(tab);
+        });
+    });
+
+    window.addEventListener('resize', () => {
+        const activeTab = document.querySelector('.tab.active');
+        if (activeTab) {
+            updateIndicator(activeTab);
+        }
+    });
+
+    // Initialisation au chargement de la page
+    window.onload = () => {
+        const activeTab = document.querySelector('.tab.active');
+        if (activeTab) {
+            updateIndicator(activeTab);
+        }
+    };
+</script>
+
 </body>
 </html>
