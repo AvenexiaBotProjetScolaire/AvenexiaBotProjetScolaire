@@ -133,10 +133,12 @@
     }
     .metier-block:hover { transform:translateY(-5px); }
     .metier-img {
-    width: 100%;
-    max-height: 160px; /* Empêche qu’elle soit trop grande */
-    object-fit: cover;
-}
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+    }
 
     .metier-content { padding:1rem; flex:1; display:flex; flex-direction:column; }
     .metier-title { margin:0 0 .5rem; font-size:1.25rem; color:var(--accent-color); }
